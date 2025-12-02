@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SpideyLand</title>
+  <title>SpideyLand Extreme</title>
   <style>
     @keyframes glow {
       0% { text-shadow: 0 0 5px lime; }
@@ -10,12 +10,13 @@
     }
 
     body { 
+      margin: 0;
       background: url('https://media.giphy.com/media/3o7aD6oZ3GVfbsf0aQ/giphy.gif') no-repeat center center fixed;
       background-size: cover;
       color: lime; 
       font-family: Comic Sans MS, sans-serif; 
       text-align: center; 
-      padding-top: 50px;
+      overflow-x: hidden;
     }
 
     nav {
@@ -41,17 +42,59 @@
       font-size: 24px; 
       animation: glow 3s infinite alternate;
     }
+
+    img {
+      width: 300px; 
+      margin-top: 30px; 
+      border: 4px solid lime;
+      border-radius: 20px;
+      box-shadow: 0 0 30px lime, 0 0 60px red;
+      transition: 0.5s;
+    }
+    img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 60px lime, 0 0 120px red;
+    }
+
+    #cursor-glow {
+      position: fixed;
+      pointer-events: none;
+      width: 50px;
+      height: 50px;
+      background: rgba(0,255,0,0.5);
+      border-radius: 50%;
+      box-shadow: 0 0 20px lime, 0 0 40px red;
+      transform: translate(-50%, -50%);
+      transition: 0.05s;
+    }
   </style>
 </head>
 <body>
+  <!-- Spidey glowing cursor -->
+  <div id="cursor-glow"></div>
+
   <nav>
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
   </nav>
 
-  <h1>🕷️ Welcome to SpideyLand! 🕸️</h1>
-  <p>Powered by chaos, GIFs, and zero riyals.</p>
-  <img src="https://media.giphy.com/media/3o7aD6oZ3GVfbsf0aQ/giphy.gif" alt="Spidey GIF" style="width: 300px; margin-top: 30px;">
+  <h1>🕷️ Welcome to SpideyLand Extreme! 🕸️</h1>
+  <p>Powered by chaos, GIFs, music, and zero riyals.</p>
+  <img src="https://media.giphy.com/media/3o7aD6oZ3GVfbsf0aQ/giphy.gif" alt="Spidey GIF">
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Mouse-following glow
+    const cursor = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+  </script>
 </body>
 </html>
