@@ -3,13 +3,21 @@
 <head>
   <title>SpideyLand</title>
   <style>
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px lime; }
+      50% { text-shadow: 0 0 20px red; }
+      100% { text-shadow: 0 0 5px lime; }
+    }
+
     body { 
-      background: black; 
+      background: url('https://media.giphy.com/media/3o7aD6oZ3GVfbsf0aQ/giphy.gif') no-repeat center center fixed;
+      background-size: cover;
       color: lime; 
       font-family: Comic Sans MS, sans-serif; 
       text-align: center; 
       padding-top: 50px;
     }
+
     nav {
       margin-bottom: 40px;
     }
@@ -18,13 +26,21 @@
       text-decoration: none;
       font-size: 24px;
       margin: 0 20px;
+      transition: 0.3s;
     }
     nav a:hover {
       color: red;
+      text-shadow: 0 0 10px lime, 0 0 20px red;
     }
-    h1 { font-size: 60px; }
-    p { font-size: 24px; }
-    img { width: 300px; margin-top: 30px; }
+
+    h1 { 
+      font-size: 60px; 
+      animation: glow 2s infinite;
+    }
+    p { 
+      font-size: 24px; 
+      animation: glow 3s infinite alternate;
+    }
   </style>
 </head>
 <body>
@@ -35,7 +51,7 @@
   </nav>
 
   <h1>🕷️ Welcome to SpideyLand! 🕸️</h1>
-  <p>Powered by chaos and zero riyals.</p>
-  <img src="https://media.giphy.com/media/3o7aD6oZ3GVfbsf0aQ/giphy.gif" alt="Spidey GIF">
+  <p>Powered by chaos, GIFs, and zero riyals.</p>
+  <img src="https://media.giphy.com/media/3o7aD6oZ3GVfbsf0aQ/giphy.gif" alt="Spidey GIF" style="width: 300px; margin-top: 30px;">
 </body>
 </html>
