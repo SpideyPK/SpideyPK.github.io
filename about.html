@@ -3,27 +3,24 @@
 <head>
   <title>About SpideyLand</title>
   <style>
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px lime; }
+      50% { text-shadow: 0 0 20px red; }
+      100% { text-shadow: 0 0 5px lime; }
+    }
     body { 
-      background: black; 
+      background: url('https://media.giphy.com/media/3o7aD6oZ3GVfbsf0aQ/giphy.gif') no-repeat center center fixed;
+      background-size: cover;
       color: lime; 
       font-family: Comic Sans MS, sans-serif; 
       text-align: center; 
       padding-top: 50px;
     }
-    nav {
-      margin-bottom: 40px;
-    }
-    nav a {
-      color: lime;
-      text-decoration: none;
-      font-size: 24px;
-      margin: 0 20px;
-    }
-    nav a:hover {
-      color: red;
-    }
-    h1 { font-size: 50px; }
-    p { font-size: 22px; }
+    nav { margin-bottom: 40px; }
+    nav a { color: lime; text-decoration: none; font-size: 24px; margin: 0 20px; transition: 0.3s; }
+    nav a:hover { color: red; text-shadow: 0 0 10px lime, 0 0 20px red; }
+    h1 { font-size: 50px; animation: glow 2s infinite; }
+    p { font-size: 22px; animation: glow 3s infinite alternate; }
   </style>
 </head>
 <body>
