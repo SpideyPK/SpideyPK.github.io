@@ -1,37 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>About SpideyLand</title>
+  <title>About SpideyPK</title>
+
   <style>
-    @keyframes glow {
-      0% { text-shadow: 0 0 5px lime; }
-      50% { text-shadow: 0 0 20px red; }
-      100% { text-shadow: 0 0 5px lime; }
-    }
-    body { 
-      background: url('https://media.giphy.com/media/3o7aD6oZ3GVfbsf0aQ/giphy.gif') no-repeat center center fixed;
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', sans-serif;
+      text-align: center;
+      color: cyan;
+
+      background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaDd1dnExYWUzNDN2dXZ3ejNxZGN4dmd3dWNpODI3cXJyb2hkeTFiYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BWD3CtcudWL28/giphy.gif')
+        no-repeat center center fixed;
       background-size: cover;
-      color: lime; 
-      font-family: Comic Sans MS, sans-serif; 
-      text-align: center; 
-      padding-top: 50px;
     }
-    nav { margin-bottom: 40px; }
-    nav a { color: lime; text-decoration: none; font-size: 24px; margin: 0 20px; transition: 0.3s; }
-    nav a:hover { color: red; text-shadow: 0 0 10px lime, 0 0 20px red; }
-    h1 { font-size: 50px; animation: glow 2s infinite; }
-    p { font-size: 22px; animation: glow 3s infinite alternate; }
+
+    nav a {
+      color: cyan;
+      font-size: 24px;
+      margin: 0 20px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: yellow;
+      text-shadow: 0 0 10px cyan, 0 0 20px yellow;
+    }
+
+    h1 {
+      font-size: 60px;
+      margin-top: 40px;
+      animation: glow 2s infinite;
+    }
+
+    p {
+      font-size: 28px;
+      width: 80%;
+      margin: auto;
+      animation: glow 3s infinite alternate;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px cyan; }
+      50% { text-shadow: 0 0 25px yellow; }
+      100% { text-shadow: 0 0 10px cyan; }
+    }
+
+    #cursor-glow {
+      position: fixed;
+      pointer-events: none;
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 255, 255, 0.4);
+      border-radius: 50%;
+      box-shadow: 0 0 20px cyan, 0 0 30px yellow;
+      transform: translate(-50%, -50%);
+      transition: 0.05s;
+    }
   </style>
 </head>
+
 <body>
+  <div id="cursor-glow"></div>
+
   <nav>
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
   </nav>
 
-  <h1>About SpideyLand</h1>
-  <p>This website is powered by chaos, GIFs, and Spidey vibes.</p>
-  <p>Built on GitHub Pages for free and zero riyals spent.</p>
+  <h1>About SpideyPK 🕷️</h1>
+
+  <p>
+    A chaotic web-slinger with a passion for tech, GIFs, glowing websites, and occasionally breaking the multiverse.
+  </p>
+  <p>
+    Known for epic gaming skills, questionable sleep schedules, and creating radioactive webpages that burn eyeballs (in a good way).
+  </p>
+
+  <script>
+    const cursor = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+  </script>
+
 </body>
 </html>
