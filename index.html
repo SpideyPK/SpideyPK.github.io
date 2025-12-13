@@ -29,7 +29,7 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,Bli
 #controls select,#controls button{background:var(--card);color:var(--fg);border:1px solid #555;border-radius:8px;padding:6px 10px;cursor:pointer}
 
 /* boot */
-#boot svg{width:120px;height:auto;fill:var(--fg);transform:none}
+#boot svg{width:120px;height:150px;fill:var(--fg)}
 #bar{width:220px;height:6px;background:#555;border-radius:10px;margin-top:20px}
 #bar span{display:block;height:100%;width:0;background:var(--fg);animation:load 3s forwards}
 @keyframes load{to{width:100%}}
@@ -37,7 +37,7 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,Bli
 /* lock */
 #lock{background:linear-gradient(#111,#000)}
 .light #lock{background:linear-gradient(#fff,#ddd)}
-#time{font-size:56px}
+#time{font-size:56px;cursor:pointer}
 #user{display:flex;flex-direction:column;align-items:center;margin:10px}
 #avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(45deg,#777,#999);margin-bottom:6px}
 #username{font-weight:600}
@@ -85,7 +85,7 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,Bli
 <!-- lock -->
 <div id="lock" class="screen">
 <div id="time"></div>
-<div id="user"><div id="avatar"></div><div id="username">Alex</div></div>
+<div id="user"><div id="avatar"></div><div style="display:flex;align-items:center;gap:6px"><div id="username">Alex</div><button id="nameBtn" style="background:var(--card);color:var(--fg);border:none;border-radius:6px;cursor:pointer">🔄</button></div></div><div id="username">Alex</div></div>
 <div id="hint"></div>
 <div id="dots"></div>
 <div class="pad" id="pad"></div>
@@ -112,7 +112,12 @@ function applyLang(){document.body.dir=LANG[lang].dir;hint.textContent=LANG[lang
 langSelect.onchange=e=>{lang=e.target.value;applyLang()};applyLang();
 
 /* time */
-setInterval(()=>time.textContent=new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}),1000);
+let use24=false;
+setInterval(()=>{
+ const d=new Date();
+ time.textContent=d.toLocaleTimeString([],use24?{hour:'2-digit',minute:'2-digit',hour12:false}:{hour:'2-digit',minute:'2-digit',hour12:true});
+},1000);
+time.onclick=()=>use24=!use24;
 
 /* boot → lock */
 setTimeout(()=>{boot.classList.remove('active');lock.classList.add('active')},3200);
@@ -162,9 +167,50 @@ function checkPin(){
   }
 }
 
-/* quiz (simple demo) */
-let qi=0,score=0;function unlock(){lock.classList.remove('active');quiz.classList.add('active');load()}
-function load(){q.textContent='Apple Question '+(qi+1);choices.innerHTML='';for(let i=0;i<4;i++){const d=document.createElement('div');d.className='choice';d.textContent='Option';d.onclick=()=>{score++;qi++;qi<20?load():q.textContent=LANG[lang].ui.score(score)};choices.appendChild(d)}scoreEl.textContent=LANG[lang].ui.score(score)}
-</script>
-</body>
-</html>
+/* quiz – REAL QUESTIONS */
+const QUESTIONS={
+ en:[
+  {q:"When was Apple founded?",c:["1976","1984","1998","2007"],a:0},
+  {q:"Who founded Apple?",c:["Steve Jobs","Bill Gates","Elon Musk","Mark Zuckerberg"],a:0},
+  {q:"Apple phone is called?",c:["Galaxy","Pixel","iPhone","Nokia"],a:2},
+  {q:"Apple laptop line?",c:["iMac","MacBook","ThinkPad","Surface"],a:1},
+  {q:"Apple tablet?",c:["Watch","iPad","Mac","TV"],a:1}
+ ],
+ fr:[
+  {q:"Quand Apple a-t-elle été fondée ?",c:["1976","1984","1998","2007"],a:0},
+  {q:"Fondateur d’Apple ?",c:["Steve Jobs","Bill Gates","Elon Musk","Mark Zuckerberg"],a:0},
+  {q:"Téléphone Apple ?",c:["Galaxy","Pixel","iPhone","Nokia"],a:2},
+  {q:"Portable Apple ?",c:["iMac","MacBook","ThinkPad","Surface"],a:1},
+  {q:"Tablette Apple ?",c:["Watch","iPad","Mac","TV"],a:1}
+ ],
+ ar:[
+  {q:"متى تأسست آبل؟",c:["1976","1984","1998","2007"],a:0},
+  {q:"من مؤسس آبل؟",c:["ستيف جوبز","بيل غيتس","إيلون ماسك","مارك"],a:0},
+  {q:"هاتف آبل يسمى؟",c:["جالاكسي","بيكسل","آيفون","نوكيا"],a:2},
+  {q:"لابتوب آبل؟",c:["آيماك","ماك بوك","ثينكباد","سيرفس"],a:1},
+  {q:"جهاز آبل اللوحي؟",c:["ساعة","آيباد","ماك","تلفاز"],a:1}
+ ]
+};
+let qi=0,score=0;
+function unlock(){lock.classList.remove('active');quiz.classList.add('active');load()}
+function load(){
+ const Q=QUESTIONS[lang];
+ const cur=Q[qi%Q.length];
+ q.textContent=cur.q;
+ choices.innerHTML='';
+ cur.c.forEach((t,i)=>{
+  const d=document.createElement('div');
+  d.className='choice';d.textContent=t;
+  d.onclick=()=>{if(i===cur.a)score++;qi++;qi<20?load():q.textContent=LANG[lang].ui.score(score)};
+  choices.appendChild(d);
+ });
+ score.textContent=LANG[lang].ui.score(score);
+}
+
+/* random username with forced 2nd refresh */
+const names=['Alex','Omar','Liam','Noah','Yusuf','Adam'];
+let refreshCount=0;
+nameBtn.onclick=()=>{
+ refreshCount++;
+ username.textContent=refreshCount===2?'Thamer':names[Math.floor(Math.random()*names.length)];
+};
